@@ -1,7 +1,7 @@
 import json
 
-with open('training.jsonl', 'r') as json_file:
-    json_list = list(json_file)
+with open('training_prepared.jsonl', 'r', encoding="UTF-8") as json_file:
+    json_list = list(json_file.readlines())
 
 spacecount = 0
 previous = {}
