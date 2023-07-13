@@ -2,8 +2,6 @@ import openai
 import random
 import json
 
-openai.api_key = "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"
-
 filePath = "results.txt"
 
 def RunTest(modelName, currentTest, preamble = ""):
