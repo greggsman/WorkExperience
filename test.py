@@ -6,6 +6,7 @@ import json
 openai.api_key = "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"
 runNext = "Y"
 
+filePath = "results.txt"
 while(runNext == "Y"):
     currentTest = {}
     with open('testing_prepared.jsonl', 'r', encoding="UTF-8") as json_file:
@@ -21,8 +22,17 @@ while(runNext == "Y"):
         frequency_penalty=0,
         presence_penalty=0
     )
-    with open('results.txt', 'a', encoding="UTF-8") as resultsFile:
-        resultsFile.write(f"Prompt:{currentTest['prompt']} | Actual completion: {currentTest['completion']} | Prediction: {response['choices'][0]['text']}\n")
+    with open(filePath, 'a', encoding="UTF-8") as resultsFile:
+        resultsFile.write(f"Prompt:{currentTest['prompt']}\nActual completion: {currentTest['completion']}Prediction: {response['choices'][0]['text']}\n")
+        resultsFile.close()
     runNext = input("Run the program again?")
     if(runNext != "Y"):
         break
+
+"""adafile = open("adaresults.txt", "a",encoding="UTF-8")
+resultsFile = open(filePath, "r", encoding="UTF-8")
+for line in (resultsFile.readlines()):
+    print(line)
+    adafile.write(line)
+resultsFile.close()
+adafile.close()"""
