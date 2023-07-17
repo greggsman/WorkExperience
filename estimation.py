@@ -5,6 +5,7 @@ with open('training_prepared.jsonl', 'r', encoding="UTF-8") as json_file:
 
 spacecount = 0
 previous = {}
+# counts spaces to estimate number of tokens
 for i in range(len(json_list)):
     result = json.loads(json_list[i])
     currentPrompt = result["prompt"]

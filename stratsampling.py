@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 import random
-
+# stratisfied sampling for sourcing data to train/test the open ai models
 # orgranise the csv into a dictionary of dictionaries 
 strata = {"0" : []}
 strataDensity = 25
@@ -38,6 +38,7 @@ testing = open("testing.jsonl", "r+")
 testing.truncate(0)
 testing.close()
 
+# randomly selects items from each strata
 for stratum in strata:
     try:
         sample = random.sample(strata[stratum], k = 2)
