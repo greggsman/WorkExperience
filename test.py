@@ -4,11 +4,14 @@ import json
 
 filePath = "results.txt"
 # runs the pretrained ai given the specified model name, optional parameter preamble for the gpt turbo model
+# hello from specified parameters branch
 def RunTest(modelName, currentTest, preamble = ""): 
     global response
     global prediction
+    temperature = 1.5
+    maxTokens = 256
     if(modelName == "gpt-3.5-turbo-0613"):
-        #different process if the model is a gpt turbo
+        # different process if the model is a gpt turbo
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -17,21 +20,15 @@ def RunTest(modelName, currentTest, preamble = ""):
                     "content": f"{preamble}{currentTest['prompt']} \"\"\""
                 }
             ],
-            temperature=1.5,
-            max_tokens=256,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0)
+            temperature=temperature,
+            max_tokens=maxTokens)
         prediction = response["choices"][0]["message"]["content"]
     else: # if its one of the pre trained models
         response = openai.Completion.create(
             model=modelName,
             prompt = currentTest["prompt"],
-            temperature=0.7,
-            max_tokens=256,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0)
+            temperature=temperature,
+            max_tokens=maxTokens)
         prediction = response["choices"][0]["text"]
     with open(filePath, 'a', encoding="UTF-8") as resultsFile:
         resultsFile.write(f"\nModel: {modelName} \nPrompt:{currentTest['prompt']}\nActual completion: {currentTest['completion']}Prediction: {prediction}\n")
