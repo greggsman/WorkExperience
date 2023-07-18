@@ -2,7 +2,8 @@ import pandas as pd
 import json
 import random
 # stratisfied sampling for sourcing data to train/test the open ai models
-# orgranise the csv into a dictionary of dictionaries 
+# orgranise the csv into a dictionary of dictionaries
+ 
 strata = {"0" : []}
 strataDensity = 25
 testFile = pd.read_csv("walmart_com-ecommerce_product_details.csv")
