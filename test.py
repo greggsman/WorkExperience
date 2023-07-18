@@ -1,6 +1,7 @@
 import openai
 import random
 import json
+import time
 
 filePath = "results.txt"
 # runs the pretrained ai given the specified model name, optional parameter preamble for the gpt turbo model
@@ -10,6 +11,8 @@ def RunTest(modelName, currentTest, preamble = ""):
     global prediction
     temperature = 1.5
     maxTokens = 256
+
+    start = time.time()
     if(modelName == "gpt-3.5-turbo-0613"):
         # different process if the model is a gpt turbo
         response = openai.ChatCompletion.create(
@@ -30,9 +33,8 @@ def RunTest(modelName, currentTest, preamble = ""):
             temperature=temperature,
             max_tokens=maxTokens)
         prediction = response["choices"][0]["text"]
-    with open(filePath, 'a', encoding="UTF-8") as resultsFile:
-        resultsFile.write(f"\nModel: {modelName} \nPrompt:{currentTest['prompt']}\nActual completion: {currentTest['completion']}Prediction: {prediction}\n")
-        resultsFile.close()
+    end = time.time()
+    return f"\nModel: {modelName}\nPrediction: {prediction}\nTime taken: {end - start}\n"
 
 # the three models
 trainedAda = "ada:ft-personal-2023-07-11-15-31-15"
@@ -49,8 +51,9 @@ while(runNext == "Y"):
         json_list = list(json_file)
         currentTest = json.loads(json_list[random.randint(0, len(json_list) - 1)])
         json_file.close()
-    RunTest(trainedAda, currentTest)
-    RunTest(trainedBabbage, currentTest)
-    RunTest(gptTurbo, currentTest, gptTurboPreamble)
+    with open(filePath, 'a', encoding="UTF-8") as resultsFile:
+        resultsFile.write(f"{currentTest['prompt']}\n{currentTest['completion']}")
+        resultsFile.write(f"{RunTest(trainedAda, currentTest)}\n{RunTest(trainedBabbage, currentTest)}\n{RunTest(gptTurbo, currentTest, preamble = gptTurboPreamble)}\n \n")
+        resultsFile.close()
     runNext = input("Run the program again?")
     

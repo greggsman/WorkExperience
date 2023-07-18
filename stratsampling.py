@@ -8,7 +8,7 @@ strataDensity = 25
 testFile = pd.read_csv("walmart_com-ecommerce_product_details.csv")
 for i in range(len(testFile)):
     current = testFile.loc[i]
-    if(str(current["Sale Price"]) == "nan"):
+    if(str(current["Sale Price"]) == "nan"): 
         continue
     key = str(round(current["Sale Price"] / strataDensity))
     try: 
