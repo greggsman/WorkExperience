@@ -53,7 +53,7 @@ while(runNext == "Y"):
         json_file.close()
     with open(filePath, 'a', encoding="UTF-8") as resultsFile:
         resultsFile.write(f"{currentTest['prompt']}\n{currentTest['completion']}")
-        resultsFile.write(f"{RunTest(trainedAda, currentTest)}\n{RunTest(trainedBabbage, currentTest)}\n{RunTest(gptTurbo, currentTest, preamble = gptTurboPreamble)}\n \n")
+        resultsFile.write(f"{RunTest(trainedAda, currentTest)}\n{RunTest(trainedBabbage, currentTest)}\n{RunTest(gptTurbo, currentTest, preamble = gptTurboPreamble)}\n")
         resultsFile.close()
     runNext = input("Run the program again?")
     
