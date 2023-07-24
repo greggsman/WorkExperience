@@ -2,6 +2,8 @@ import json
 
 with open('training_prepared.jsonl', 'r', encoding="UTF-8") as json_file:
     json_list = list(json_file.readlines())
+
+
 spacecount = 0
 charCount = 0
 previous = {}
